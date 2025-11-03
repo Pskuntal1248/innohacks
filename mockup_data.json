@@ -1,0 +1,484 @@
+{
+  "info": {
+    "title": "Mockup Data for Frontend Development",
+    "description": "Use this when backend is not available",
+    "baseUrl": "http://localhost:8080",
+    "lastUpdated": "2025-11-04"
+  },
+  
+  "users": [
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "email": "alice@example.com",
+      "createdAt": "2025-11-01T10:00:00"
+    },
+    {
+      "id": 2,
+      "name": "Bob Smith",
+      "email": "bob@example.com",
+      "createdAt": "2025-11-01T11:00:00"
+    },
+    {
+      "id": 3,
+      "name": "Charlie Brown",
+      "email": "charlie@example.com",
+      "createdAt": "2025-11-01T12:00:00"
+    }
+  ],
+  
+  "categories": [
+    {
+      "id": 1,
+      "name": "Education",
+      "description": "Educational resources and materials",
+      "iconEmoji": "📚",
+      "createdAt": "2025-11-01T00:00:00"
+    },
+    {
+      "id": 2,
+      "name": "Research",
+      "description": "Research papers and publications",
+      "iconEmoji": "🔬",
+      "createdAt": "2025-11-01T00:00:00"
+    },
+    {
+      "id": 3,
+      "name": "Technology",
+      "description": "Tech tutorials and guides",
+      "iconEmoji": "💻",
+      "createdAt": "2025-11-01T00:00:00"
+    },
+    {
+      "id": 4,
+      "name": "Science",
+      "description": "Scientific resources",
+      "iconEmoji": "🧪",
+      "createdAt": "2025-11-01T00:00:00"
+    },
+    {
+      "id": 5,
+      "name": "Arts",
+      "description": "Creative and artistic content",
+      "iconEmoji": "🎨",
+      "createdAt": "2025-11-01T00:00:00"
+    },
+    {
+      "id": 6,
+      "name": "Business",
+      "description": "Business and entrepreneurship",
+      "iconEmoji": "💼",
+      "createdAt": "2025-11-01T00:00:00"
+    },
+    {
+      "id": 7,
+      "name": "Programming",
+      "description": "Coding tutorials and examples",
+      "iconEmoji": "⚙️",
+      "createdAt": "2025-11-01T00:00:00"
+    },
+    {
+      "id": 8,
+      "name": "Design",
+      "description": "UI/UX and graphic design",
+      "iconEmoji": "🎯",
+      "createdAt": "2025-11-01T00:00:00"
+    }
+  ],
+  
+  "resources": [
+    {
+      "id": 1,
+      "title": "Introduction to Machine Learning",
+      "description": "A comprehensive guide covering the fundamentals of machine learning, including supervised and unsupervised learning, neural networks, and practical applications.",
+      "filePath": "ml-guide-2024.pdf",
+      "uploaderId": 1,
+      "averageRating": 4.6,
+      "viewCount": 234,
+      "downloadCount": 89,
+      "categories": [
+        {
+          "id": 1,
+          "name": "Education",
+          "iconEmoji": "📚"
+        },
+        {
+          "id": 3,
+          "name": "Technology",
+          "iconEmoji": "💻"
+        }
+      ],
+      "createdAt": "2025-11-01T14:30:00"
+    },
+    {
+      "id": 2,
+      "title": "Complete Python Course",
+      "description": "From beginner to advanced Python programming. Includes examples, exercises, and real-world projects.",
+      "filePath": "python-complete-course.pdf",
+      "uploaderId": 2,
+      "averageRating": 4.75,
+      "viewCount": 456,
+      "downloadCount": 123,
+      "categories": [
+        {
+          "id": 1,
+          "name": "Education",
+          "iconEmoji": "📚"
+        },
+        {
+          "id": 7,
+          "name": "Programming",
+          "iconEmoji": "⚙️"
+        }
+      ],
+      "createdAt": "2025-11-01T15:00:00"
+    },
+    {
+      "id": 3,
+      "title": "Web Development Bootcamp",
+      "description": "Learn HTML, CSS, JavaScript, React, Node.js and build full-stack applications.",
+      "filePath": "web-dev-bootcamp.pdf",
+      "uploaderId": 3,
+      "averageRating": 4.5,
+      "viewCount": 589,
+      "downloadCount": 201,
+      "categories": [
+        {
+          "id": 1,
+          "name": "Education",
+          "iconEmoji": "📚"
+        },
+        {
+          "id": 7,
+          "name": "Programming",
+          "iconEmoji": "⚙️"
+        },
+        {
+          "id": 3,
+          "name": "Technology",
+          "iconEmoji": "💻"
+        }
+      ],
+      "createdAt": "2025-11-02T09:00:00"
+    },
+    {
+      "id": 4,
+      "title": "UI/UX Design Principles",
+      "description": "Essential design principles for creating beautiful and functional user interfaces.",
+      "filePath": "uiux-principles.pdf",
+      "uploaderId": 1,
+      "averageRating": 4.8,
+      "viewCount": 567,
+      "downloadCount": 223,
+      "categories": [
+        {
+          "id": 8,
+          "name": "Design",
+          "iconEmoji": "🎯"
+        },
+        {
+          "id": 3,
+          "name": "Technology",
+          "iconEmoji": "💻"
+        }
+      ],
+      "createdAt": "2025-11-02T11:30:00"
+    },
+    {
+      "id": 5,
+      "title": "React Hooks Complete Guide",
+      "description": "In-depth guide to React Hooks with examples and best practices.",
+      "filePath": "react-hooks-guide.pdf",
+      "uploaderId": 2,
+      "averageRating": 4.6,
+      "viewCount": 789,
+      "downloadCount": 312,
+      "categories": [
+        {
+          "id": 7,
+          "name": "Programming",
+          "iconEmoji": "⚙️"
+        },
+        {
+          "id": 3,
+          "name": "Technology",
+          "iconEmoji": "💻"
+        },
+        {
+          "id": 1,
+          "name": "Education",
+          "iconEmoji": "📚"
+        }
+      ],
+      "createdAt": "2025-11-03T08:00:00"
+    }
+  ],
+  
+  "resourceDetails": {
+    "1": {
+      "id": 1,
+      "title": "Introduction to Machine Learning",
+      "description": "A comprehensive guide covering the fundamentals of machine learning, including supervised and unsupervised learning, neural networks, and practical applications.",
+      "filePath": "ml-guide-2024.pdf",
+      "uploaderId": 1,
+      "uploaderName": "Alice Johnson",
+      "uploaderEmail": "alice@example.com",
+      "averageRating": 4.6,
+      "viewCount": 235,
+      "downloadCount": 89,
+      "categories": ["Education", "Technology", "Science"],
+      "commentCount": 4,
+      "favoriteCount": 5,
+      "isFavoritedByCurrentUser": false,
+      "createdAt": "2025-11-01T14:30:00"
+    },
+    "2": {
+      "id": 2,
+      "title": "Complete Python Course",
+      "description": "From beginner to advanced Python programming. Includes examples, exercises, and real-world projects.",
+      "filePath": "python-complete-course.pdf",
+      "uploaderId": 2,
+      "uploaderName": "Bob Smith",
+      "uploaderEmail": "bob@example.com",
+      "averageRating": 4.75,
+      "viewCount": 457,
+      "downloadCount": 123,
+      "categories": ["Education", "Programming", "Technology"],
+      "commentCount": 3,
+      "favoriteCount": 6,
+      "isFavoritedByCurrentUser": true,
+      "createdAt": "2025-11-01T15:00:00"
+    }
+  },
+  
+  "comments": {
+    "1": [
+      {
+        "id": 1,
+        "content": "Excellent resource! The explanations are clear and the examples are very practical.",
+        "userName": "Bob Smith",
+        "userEmail": "bob@example.com",
+        "createdAt": "2025-11-01T16:00:00"
+      },
+      {
+        "id": 2,
+        "content": "This helped me understand neural networks finally. Thank you for sharing!",
+        "userName": "Charlie Brown",
+        "userEmail": "charlie@example.com",
+        "createdAt": "2025-11-01T17:30:00"
+      },
+      {
+        "id": 3,
+        "content": "Great introduction to ML. Would love to see a follow-up on deep learning.",
+        "userName": "Alice Johnson",
+        "userEmail": "alice@example.com",
+        "createdAt": "2025-11-02T10:00:00"
+      },
+      {
+        "id": 4,
+        "content": "Very comprehensive. Used this for my university project.",
+        "userName": "Diana Prince",
+        "userEmail": "diana@example.com",
+        "createdAt": "2025-11-02T14:20:00"
+      }
+    ],
+    "2": [
+      {
+        "id": 5,
+        "content": "Perfect for beginners! I went from zero to building my first web scraper.",
+        "userName": "Alice Johnson",
+        "userEmail": "alice@example.com",
+        "createdAt": "2025-11-01T18:00:00"
+      },
+      {
+        "id": 6,
+        "content": "The exercises are challenging but rewarding. Highly recommend!",
+        "userName": "Charlie Brown",
+        "userEmail": "charlie@example.com",
+        "createdAt": "2025-11-02T09:00:00"
+      },
+      {
+        "id": 7,
+        "content": "Clear explanations and good progression. Well structured course.",
+        "userName": "Diana Prince",
+        "userEmail": "diana@example.com",
+        "createdAt": "2025-11-02T15:45:00"
+      }
+    ],
+    "5": [
+      {
+        "id": 20,
+        "content": "useEffect finally makes sense! Thank you for the clear examples.",
+        "userName": "Alice Johnson",
+        "userEmail": "alice@example.com",
+        "createdAt": "2025-11-03T10:00:00"
+      },
+      {
+        "id": 21,
+        "content": "Comprehensive guide with real-world use cases. Bookmarked!",
+        "userName": "Bob Smith",
+        "userEmail": "bob@example.com",
+        "createdAt": "2025-11-03T11:30:00"
+      },
+      {
+        "id": 22,
+        "content": "This is now my go-to reference for hooks. Excellent work.",
+        "userName": "Charlie Brown",
+        "userEmail": "charlie@example.com",
+        "createdAt": "2025-11-03T14:00:00"
+      },
+      {
+        "id": 23,
+        "content": "The custom hooks section is gold. Learned so much!",
+        "userName": "Diana Prince",
+        "userEmail": "diana@example.com",
+        "createdAt": "2025-11-03T16:20:00"
+      }
+    ]
+  },
+  
+  "favorites": {
+    "currentUser": [
+      {
+        "id": 2,
+        "title": "Complete Python Course",
+        "description": "From beginner to advanced Python programming.",
+        "filePath": "python-complete-course.pdf",
+        "uploaderId": 2,
+        "averageRating": 4.75,
+        "viewCount": 456,
+        "downloadCount": 123,
+        "categories": [],
+        "createdAt": "2025-11-01T15:00:00"
+      },
+      {
+        "id": 5,
+        "title": "React Hooks Complete Guide",
+        "description": "In-depth guide to React Hooks with examples and best practices.",
+        "filePath": "react-hooks-guide.pdf",
+        "uploaderId": 2,
+        "averageRating": 4.6,
+        "viewCount": 789,
+        "downloadCount": 312,
+        "categories": [],
+        "createdAt": "2025-11-03T08:00:00"
+      }
+    ]
+  },
+  
+  "searchResults": {
+    "react": [
+      {
+        "id": 3,
+        "title": "Web Development Bootcamp",
+        "description": "Learn HTML, CSS, JavaScript, React, Node.js and build full-stack applications.",
+        "filePath": "web-dev-bootcamp.pdf",
+        "uploaderId": 3,
+        "averageRating": 4.5,
+        "viewCount": 589,
+        "downloadCount": 201,
+        "categories": [
+          {
+            "id": 1,
+            "name": "Education",
+            "iconEmoji": "📚"
+          },
+          {
+            "id": 7,
+            "name": "Programming",
+            "iconEmoji": "⚙️"
+          }
+        ],
+        "createdAt": "2025-11-02T09:00:00"
+      },
+      {
+        "id": 5,
+        "title": "React Hooks Complete Guide",
+        "description": "In-depth guide to React Hooks with examples and best practices.",
+        "filePath": "react-hooks-guide.pdf",
+        "uploaderId": 2,
+        "averageRating": 4.6,
+        "viewCount": 789,
+        "downloadCount": 312,
+        "categories": [
+          {
+            "id": 7,
+            "name": "Programming",
+            "iconEmoji": "⚙️"
+          }
+        ],
+        "createdAt": "2025-11-03T08:00:00"
+      }
+    ]
+  },
+  
+  "apiResponses": {
+    "uploadSuccess": "File uploaded successfully: abc123-new-file.pdf",
+    "ratingSuccess": "Rating submitted.",
+    "ratingDuplicate": "You have already rated this resource.",
+    "commentSuccess": "Comment added successfully",
+    "favoriteAdded": {
+      "favorited": true,
+      "message": "Added to favorites"
+    },
+    "favoriteRemoved": {
+      "favorited": false,
+      "message": "Removed from favorites"
+    },
+    "downloadIncrement": "Download count incremented",
+    "unauthorized": {
+      "timestamp": "2025-11-04T00:00:00.000+00:00",
+      "status": 401,
+      "error": "Unauthorized",
+      "path": "/api/resources/favorites"
+    },
+    "badRequest": {
+      "timestamp": "2025-11-04T00:00:00.000+00:00",
+      "status": 400,
+      "error": "Bad Request",
+      "message": "You have already rated this resource."
+    },
+    "notFound": {
+      "timestamp": "2025-11-04T00:00:00.000+00:00",
+      "status": 404,
+      "error": "Not Found",
+      "message": "Resource not found"
+    },
+    "serverError": {
+      "timestamp": "2025-11-04T00:00:00.000+00:00",
+      "status": 500,
+      "error": "Internal Server Error",
+      "path": "/api/resources/1/details"
+    }
+  },
+  
+  "usage": {
+    "description": "How to use this mockup data in your frontend",
+    "examples": [
+      {
+        "name": "List Resources",
+        "code": "// Use mockupData.resources array\nconst resources = mockupData.resources;"
+      },
+      {
+        "name": "Get Categories",
+        "code": "// Use mockupData.categories array\nconst categories = mockupData.categories;"
+      },
+      {
+        "name": "Get Resource Details",
+        "code": "// Use mockupData.resourceDetails[id]\nconst details = mockupData.resourceDetails['1'];"
+      },
+      {
+        "name": "Get Comments",
+        "code": "// Use mockupData.comments[resourceId]\nconst comments = mockupData.comments['1'];"
+      },
+      {
+        "name": "Get Favorites",
+        "code": "// Use mockupData.favorites.currentUser\nconst favorites = mockupData.favorites.currentUser;"
+      },
+      {
+        "name": "Search Results",
+        "code": "// Use mockupData.searchResults[keyword]\nconst results = mockupData.searchResults['react'];"
+      }
+    ]
+  }
+}

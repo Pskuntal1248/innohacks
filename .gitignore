@@ -1,0 +1,91 @@
+# Maven
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+*.code-workspace
+
+### macOS ###
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+### Windows ###
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+### Logs ###
+logs/
+*.log
+*.log.*
+*.gz
+
+### Uploaded Files - DO NOT COMMIT USER DATA ###
+uploads/
+files/
+
+### IMPORTANT: Sensitive Configuration ###
+# Exclude actual credentials file - use .example file instead
+src/main/resources/application.properties
+
+### Database Files ###
+*.db
+*.mv.db
+*.trace.db
+
+### Backup & Temporary ###
+*.backup
+*.tmp
+*.temp
+*.bak
+temp/
+tmp/
+
+### Test & Coverage ###
+test-output/
+test-results/
+coverage/
+
+### Environment Variables ###
+.env
+.env.local
+
+### Session Files ###
+.session/
+sessions/
