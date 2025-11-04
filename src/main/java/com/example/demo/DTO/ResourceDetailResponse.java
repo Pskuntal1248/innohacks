@@ -15,6 +15,7 @@ public class ResourceDetailResponse {
     public Integer viewCount;
     public Integer downloadCount;
     public List<String> categories;
+    public List<String> tags;
     public Integer commentCount;
     public Integer favoriteCount;
     public boolean isFavoritedByCurrentUser;

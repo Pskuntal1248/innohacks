@@ -45,6 +45,13 @@ public class SecurityConfig { // <-- Notice: NO "extends WebSecurityConfigurerAd
                                 "/api/resources/*/comments",
                                 "/api/resources/search",
                                 "/api/resources/categories",
+                                "/api/resources/*/tags",
+                                "/api/tags",
+                                "/api/tags/*",
+                                "/api/tags/predefined",
+                                "/api/tags/popular",
+                                "/api/tags/search",
+                                "/api/tags/*/resources",
                                 "/api/test/**",
                                 "/oauth2/**",
                                 "/login/**"
@@ -87,13 +94,13 @@ public class SecurityConfig { // <-- Notice: NO "extends WebSecurityConfigurerAd
                     });
             
             System.out.println("User found/created: " + user.id + " - " + user.email);
-            System.out.println("=========================");
+           
             
             return oidcUser;
         };
     }
 
-    // After login, redirect the user back to your React app
+  
     private SimpleUrlAuthenticationSuccessHandler successHandler() {
         SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
         handler.setDefaultTargetUrl("http://localhost:3000"); // URL of your frontend

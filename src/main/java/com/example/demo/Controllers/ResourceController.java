@@ -55,6 +55,8 @@ public class ResourceController {
     private CommentRepository commentRepository;
     @Autowired
     private FavoriteRepository favoriteRepository;
+    @Autowired
+    private com.example.demo.Repositories.TagRepository tagRepository;
 
     // ENDPOINT 1: LIST ALL RESOURCES (Public)
     @GetMapping
@@ -69,6 +71,7 @@ public class ResourceController {
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam(value = "categories", required = false) List<String> categoryNames,
+            @RequestParam(value = "tags", required = false) List<String> tagNames,
             @AuthenticationPrincipal OAuth2User oauthUser) {
 
         if (oauthUser == null) {
@@ -99,6 +102,28 @@ public class ResourceController {
                             return categoryRepository.save(newCat);
                         });
                 newResource.categories.add(category);
+            }
+        }
+
+        // Add tags if provided (optional)
+        if (tagNames != null && !tagNames.isEmpty()) {
+            for (String tagName : tagNames) {
+                com.example.demo.Entities.Tag tag = tagRepository.findByName(tagName)
+                        .orElseGet(() -> {
+                            // Create custom tag if it doesn't exist
+                            com.example.demo.Entities.Tag newTag = new com.example.demo.Entities.Tag();
+                            newTag.name = tagName;
+                            newTag.isPredefined = false;
+                            newTag.createdBy = user.id;
+                            newTag.usageCount = 0;
+                            return tagRepository.save(newTag);
+                        });
+                
+                // Increment usage count
+                tag.usageCount++;
+                tagRepository.save(tag);
+                
+                newResource.tags.add(tag);
             }
         }
 
@@ -182,6 +207,9 @@ public class ResourceController {
         response.downloadCount = resource.downloadCount;
         response.categories = resource.categories.stream()
                 .map(cat -> cat.name)
+                .collect(Collectors.toList());
+        response.tags = resource.tags.stream()
+                .map(tag -> tag.name)
                 .collect(Collectors.toList());
         response.commentCount = resource.comments.size();
         response.favoriteCount = resource.favorites.size();
@@ -298,7 +326,8 @@ public class ResourceController {
     @GetMapping("/search")
     public ResponseEntity<?> searchResources(
             @RequestParam(required = false) String keyword,
-            @RequestParam(required = false) String category) {
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) List<String> tags) {
 
         List<com.example.demo.Entities.Resource> allResources = resourceRepository.findAll();
 
@@ -315,6 +344,14 @@ public class ResourceController {
         if (category != null && !category.trim().isEmpty()) {
             allResources = allResources.stream()
                     .filter(r -> r.categories.stream().anyMatch(c -> c.name.equalsIgnoreCase(category)))
+                    .collect(Collectors.toList());
+        }
+
+        // Filter by tags (resources must have at least one of the specified tags)
+        if (tags != null && !tags.isEmpty()) {
+            allResources = allResources.stream()
+                    .filter(r -> r.tags.stream().anyMatch(t -> 
+                        tags.stream().anyMatch(tagName -> t.name.equalsIgnoreCase(tagName))))
                     .collect(Collectors.toList());
         }
 
@@ -337,5 +374,73 @@ public class ResourceController {
         resourceRepository.save(resource);
 
         return ResponseEntity.ok("Download count incremented");
+    }
+
+    // ENDPOINT 13: GET RECOMMENDED RESOURCES BASED ON TAGS
+    @GetMapping("/{id}/recommendations")
+    public ResponseEntity<?> getRecommendations(@PathVariable Long id, @RequestParam(defaultValue = "10") int limit) {
+        com.example.demo.Entities.Resource currentResource = resourceRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Resource not found"));
+
+        // Get tags of current resource
+        if (currentResource.tags.isEmpty()) {
+            // If no tags, return popular resources
+            return ResponseEntity.ok(
+                resourceRepository.findAll().stream()
+                    .filter(r -> !r.id.equals(id))
+                    .sorted((r1, r2) -> {
+                        int score1 = r1.downloadCount * 2 + r1.viewCount;
+                        int score2 = r2.downloadCount * 2 + r2.viewCount;
+                        return Integer.compare(score2, score1);
+                    })
+                    .limit(limit)
+                    .collect(Collectors.toList())
+            );
+        }
+
+        // Find resources with matching tags
+        List<com.example.demo.Entities.Resource> allResources = resourceRepository.findAll();
+        
+        List<com.example.demo.Entities.Resource> recommendations = allResources.stream()
+                .filter(r -> !r.id.equals(id)) // Exclude current resource
+                .filter(r -> !r.tags.isEmpty()) // Only resources with tags
+                .map(r -> {
+                    // Calculate match score based on common tags
+                    long commonTags = r.tags.stream()
+                            .filter(tag -> currentResource.tags.stream()
+                                    .anyMatch(ct -> ct.id.equals(tag.id)))
+                            .count();
+                    return new Object() {
+                        final com.example.demo.Entities.Resource resource = r;
+                        final long score = commonTags;
+                    };
+                })
+                .filter(item -> item.score > 0) // Only resources with at least one common tag
+                .sorted((a, b) -> {
+                    // Sort by number of common tags (descending), then by rating
+                    if (a.score != b.score) {
+                        return Long.compare(b.score, a.score);
+                    }
+                    double ratingA = a.resource.averageRating == null ? 0.0 : a.resource.averageRating.doubleValue();
+                    double ratingB = b.resource.averageRating == null ? 0.0 : b.resource.averageRating.doubleValue();
+                    return Double.compare(ratingB, ratingA);
+                })
+                .limit(limit)
+                .map(item -> item.resource)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(recommendations);
+    }
+
+    // ENDPOINT 14: GET RESOURCES BY TAG
+    @GetMapping("/by-tag/{tagName}")
+    public ResponseEntity<?> getResourcesByTag(@PathVariable String tagName) {
+        List<com.example.demo.Entities.Resource> allResources = resourceRepository.findAll();
+        
+        List<com.example.demo.Entities.Resource> filtered = allResources.stream()
+                .filter(r -> r.tags.stream().anyMatch(t -> t.name.equalsIgnoreCase(tagName)))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(filtered);
     }
 }

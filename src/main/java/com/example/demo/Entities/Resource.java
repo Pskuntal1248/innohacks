@@ -53,6 +53,14 @@ public class Resource {
     )
     public Set<Category> categories = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+        name = "resource_tags",
+        joinColumns = @JoinColumn(name = "resource_id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    public Set<Tag> tags = new HashSet<>();
+
     @OneToMany(mappedBy = "resource", cascade = CascadeType.ALL)
     public Set<Comment> comments = new HashSet<>();
 

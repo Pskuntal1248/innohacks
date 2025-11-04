@@ -396,7 +396,316 @@ If you encounter any issues:
 
 ---
 
+4. Test endpoints using the curl commands above
+
+---
+
+## 🏷️ Tag Management Endpoints
+**Base Path**: `/api/tags`
+
+Tags allow you to categorize and organize resources. Tags can be predefined (system-wide) or custom (user-created).
+
+### 1. **Get All Tags** (Public)
+Get all available tags from the system.
+
+**Endpoint**: `GET /api/tags`
+
+**Example**:
+```bash
+curl -X GET http://localhost:8080/api/tags
+```
+
+**Response**:
+```json
+[
+  {
+    "id": 1,
+    "name": "Technology",
+    "description": "Technology-related resources",
+    "isPredefined": true,
+    "usageCount": 45
+  },
+  {
+    "id": 2,
+    "name": "Education",
+    "description": "Educational materials and resources",
+    "isPredefined": true,
+    "usageCount": 32
+  }
+]
+```
+
+---
+
+### 2. **Get Predefined Tags** (Public)
+Get only system predefined tags.
+
+**Endpoint**: `GET /api/tags/predefined`
+
+**Example**:
+```bash
+curl -X GET http://localhost:8080/api/tags/predefined
+```
+
+**Response**: Same structure as /api/tags but only predefined tags
+
+---
+
+### 3. **Get Popular Tags** (Public)
+Get tags sorted by usage count (most used first).
+
+**Endpoint**: `GET /api/tags/popular?limit=20`
+
+**Query Parameters**:
+- `limit` (optional, default: 20) - Maximum number of tags to return
+
+**Example**:
+```bash
+curl -X GET "http://localhost:8080/api/tags/popular?limit=10"
+```
+
+**Response**: Same structure as /api/tags, sorted by usageCount
+
+---
+
+### 4. **Search Tags** (Public)
+Search for tags by keyword (case-insensitive).
+
+**Endpoint**: `GET /api/tags/search?keyword=tech`
+
+**Query Parameters**:
+- `keyword` (required) - Search term for tag names
+
+**Example**:
+```bash
+curl -X GET "http://localhost:8080/api/tags/search?keyword=science"
+```
+
+**Response**: Same structure as /api/tags, filtered by keyword
+
+---
+
+### 5. **Get Tag Details** (Public)
+Get details for a specific tag.
+
+**Endpoint**: `GET /api/tags/{id}`
+
+**Example**:
+```bash
+curl -X GET http://localhost:8080/api/tags/1
+```
+
+**Response**:
+```json
+{
+  "id": 1,
+  "name": "Technology",
+  "description": "Technology-related resources",
+  "isPredefined": true,
+  "usageCount": 45
+}
+```
+
+---
+
+### 6. **Get Resources by Tag** (Public)
+Get all resources associated with a specific tag.
+
+**Endpoint**: `GET /api/tags/{tagId}/resources`
+
+**Example**:
+```bash
+curl -X GET http://localhost:8080/api/tags/1/resources
+```
+
+**Response**:
+```json
+[
+  {
+    "id": 5,
+    "title": "Introduction to AI",
+    "description": "A comprehensive guide to artificial intelligence",
+    "filePath": "abc123_ai_guide.pdf",
+    "uploaderId": 2,
+    "averageRating": 4.5,
+    "viewCount": 120,
+    "downloadCount": 45
+  }
+]
+```
+
+---
+
+### 7. **Get Tags for Resource** (Public)
+Get all tags associated with a specific resource.
+
+**Endpoint**: `GET /api/resources/{resourceId}/tags`
+
+**Example**:
+```bash
+curl -X GET http://localhost:8080/api/resources/5/tags
+```
+
+**Response**:
+```json
+[
+  {
+    "id": 1,
+    "name": "Technology",
+    "description": "Technology-related resources",
+    "isPredefined": true,
+    "usageCount": 45
+  },
+  {
+    "id": 5,
+    "name": "AI/ML",
+    "description": "Artificial Intelligence and Machine Learning",
+    "isPredefined": true,
+    "usageCount": 28
+  }
+]
+```
+
+---
+
+### 8. **Create Custom Tag** (🔒 Requires Authentication)
+Create a new custom tag (for logged-in users only).
+
+**Endpoint**: `POST /api/tags`
+
+**Authentication**: Requires Google OAuth2 login
+
+**Request Body**:
+```json
+{
+  "name": "My Custom Tag",
+  "description": "Description of my custom tag"
+}
+```
+
+**Example**:
+```bash
+curl -X POST http://localhost:8080/api/tags \
+  -H "Content-Type: application/json" \
+  -H "Cookie: JSESSIONID=your_session_id" \
+  -d '{
+    "name": "Web Development",
+    "description": "Resources about web development"
+  }'
+```
+
+**Response**:
+```json
+{
+  "id": 25,
+  "name": "Web Development",
+  "description": "Resources about web development",
+  "isPredefined": false,
+  "usageCount": 0
+}
+```
+
+**Error Responses**:
+- `401`: Not authenticated
+- `409`: Tag already exists
+- `400`: Tag name is empty
+
+---
+
+### 9. **Get My Tags** (🔒 Requires Authentication)
+Get all tags created by the currently logged-in user.
+
+**Endpoint**: `GET /api/tags/my-tags`
+
+**Authentication**: Requires Google OAuth2 login
+
+**Example**:
+```bash
+curl -X GET http://localhost:8080/api/tags/my-tags \
+  -H "Cookie: JSESSIONID=your_session_id"
+```
+
+**Response**: Same structure as /api/tags, only user-created tags
+
+---
+
+### 10. **Delete Custom Tag** (🔒 Requires Authentication)
+Delete a custom tag (only the creator can delete their own tags).
+
+**Endpoint**: `DELETE /api/tags/{id}`
+
+**Authentication**: Requires Google OAuth2 login
+
+**Example**:
+```bash
+curl -X DELETE http://localhost:8080/api/tags/25 \
+  -H "Cookie: JSESSIONID=your_session_id"
+```
+
+**Response**:
+```json
+"Tag deleted successfully"
+```
+
+**Error Responses**:
+- `401`: Not authenticated
+- `403`: Cannot delete predefined tags or tags created by others
+- `404`: Tag not found
+
+---
+
+## 🏷️ Tag Usage Examples
+
+### Frontend Integration Example (React)
+
+```javascript
+// Get all popular tags
+const getPopularTags = async () => {
+  const response = await fetch('http://localhost:8080/api/tags/popular?limit=10');
+  const tags = await response.json();
+  return tags;
+};
+
+// Search tags
+const searchTags = async (keyword) => {
+  const response = await fetch(`http://localhost:8080/api/tags/search?keyword=${keyword}`);
+  const tags = await response.json();
+  return tags;
+};
+
+// Get resources by tag
+const getResourcesByTag = async (tagId) => {
+  const response = await fetch(`http://localhost:8080/api/tags/${tagId}/resources`);
+  const resources = await response.json();
+  return resources;
+};
+
+// Create custom tag (requires authentication)
+const createTag = async (tagData) => {
+  const response = await fetch('http://localhost:8080/api/tags', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include', // Important for OAuth session
+    body: JSON.stringify(tagData)
+  });
+  
+  if (response.status === 401) {
+    // Redirect to login
+    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+    return;
+  }
+  
+  return await response.json();
+};
+```
+
+---
+
 **Last Updated**: November 4, 2025
 **Database**: innohacks (PostgreSQL)
 **Backend**: Spring Boot 3.5.7
 **Java Version**: 24.0.2
+
+```
